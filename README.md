@@ -1,164 +1,134 @@
-# octree-spatial-partitioning-c
-A straightforward C implementation of a 3D Octree data structure, featuring:
+#Octree Spatial Partitioning in C
+A lightweight and modular implementation of a 3D Octree in C, designed for efficient spatial partitioning, point queries, and live interaction via a game-loop-style demo.
 
+Features
 Point insertion, search, and deletion
 
-Automatic node subdivision (up to a configurable depth) and merging
+Automatic subdivision and merging of nodes
 
-3D range queries using axis‐aligned cubes
+3D range queries using axis-aligned bounding cubes
 
-A demo “game loop” allowing you to select a point, move it along the x/y/z axes, and detect when other points “trespass” into its bounding box
+Live simulation loop with point movement and trespass detection
 
-DSA/
-├── .vscode/ # VS Code build/debug configs
-│ ├── c_cpp_properties.json
-│ ├── launch.json
-│ ├── settings.json
-│ └── tasks.json
-├── octree.h # Octree data structures & API declarations
-├── octree.c # Octree implementation
-├── main.c # Main demo: build tree, move point, detect trespass, range query
-├── main2.c # Alternate test/demo
-├── Octree.txt # Notes on Octree algorithm
-├── RangeQuery.txt # Pseudocode for 3D range queries
-├── random.txt # Sample point dataset
-├── random1.txt # Additional dataset
-└── README.md # This file
-
-yaml
-Copy
-Edit
-
-⚙️ Prerequisites
-C compiler (e.g. gcc on Linux/macOS, MinGW on Windows)
-
-(Optional) Visual Studio Code with the provided .vscode folder for out‑of‑the‑box build & debug
-
-🛠️ Building
-From the root DSA/ directory, run:
-
+Project Structure
 bash
 Copy
 Edit
-# Compile the core octree library
+DSA/
+├── .vscode/            # VS Code build/debug configuration
+│   ├── c_cpp_properties.json
+│   ├── launch.json
+│   ├── settings.json
+│   └── tasks.json
+├── octree.h            # Octree data structures and function declarations
+├── octree.c            # Core implementation of the Octree
+├── main.c              # Main demo with interactive point movement
+├── main2.c             # Optional secondary demo or testbed
+├── Octree.txt          # Notes on design and logic
+├── RangeQuery.txt      # Details for implementing 3D range queries
+├── random.txt          # Sample point dataset
+├── random1.txt         # Additional sample dataset
+└── README.md           # Project documentation (this file)
+Requirements
+A C Compiler (gcc, MinGW, etc.)
+
+(Optional) Visual Studio Code with C extension for streamlined builds
+
+Build Instructions
+Compile and Run via Terminal
+bash
+Copy
+Edit
+# Compile octree logic
 gcc -c octree.c -o octree.o
 
-# Compile & link the main demo
+# Build main demo program
 gcc main.c octree.o -o program
 
-# (Optional) Compile & link the second demo
+# Optional: Build secondary demo
 gcc main2.c octree.o -o program2
-VS Code users:
-Open the folder, then select Terminal → Run Task… → build (configured in .vscode/tasks.json).
-
-🚀 Usage
-Ensure one of the sample files (random.txt or random1.txt) is in the working directory.
-
-Run the demo:
-
+Run the Demo
 bash
 Copy
 Edit
 ./program
-Follow the prompts:
+Loads 3D points from random.txt
 
-The octree loads points from random.txt.
+Prompts you to select a point: x y z
 
-You are asked to select a point by entering its x y z coordinates.
+Move the point using keys:
 
-Use W/A/S/D/E/F keys to move the selected point along the y/x/z axes:
+w = +Y, s = -Y
 
-Each move updates a cubic bounding box around the moving point.
+a = -X, d = +X
 
-If any other point enters this box, you’ll see
+e = +Z, f = -Z
+
+A cube forms around the point
+
+If another point enters the cube:
 
 java
 Copy
 Edit
 You are trespassing at point (X, Y, Z)!
-Press q to quit the move loop, then enter two diagonal corners to perform a 3D range query:
+Press q to exit loop and perform a 3D range query
 
-sql
-Copy
-Edit
-Enter minimum corner of cube:  x y z
-Enter maximum corner of cube:  x y z
-All points inside that cube will be printed.
-
-📄 API Overview (octree.h)
+Octree API (from octree.h)
 c
 Copy
 Edit
 typedef struct { float x, y, z; } Point;
 typedef struct OctreeNode OctreeNode;
 
-// Create a new octree node centered at `center`,
-// extending `size` units in each direction, at depth `depth`.
 OctreeNode *createNode(Point center, float size, int depth);
-
-// Insert a point into the octree, subdividing or merging as needed.
 void insertPoint(OctreeNode *root, Point *p);
-
-// Find the leaf node containing `p`, or return NULL.
 OctreeNode *search(OctreeNode *root, Point *p);
-
-// Delete `p` from the octree, merging nodes if thresholds permit.
 void deletePoint(OctreeNode *root, Point *p);
-
-// Print all points in the octree (for debugging/visualization).
 void printTree(OctreeNode *root);
-
-// 3D range query: print all points within the axis‑aligned cube [min, max].
 void rangeQuery(OctreeNode *root, Point *min, Point *max);
-📖 Detailed File Descriptions
-octree.c / octree.h
-Core octree logic: node creation, insertion (with capacity ≤ MAX_POINTS), subdivision (up to MAX_DEPTH), merging, point search, deletion, and efficient cube range queries.
+File Descriptions
+octree.c/h: Core logic – insertion, subdivision, deletion, and queries
 
-main.c
-Brings everything together:
+main.c: Game-style interaction demo with live trespass detection
 
-Builds the octree from random.txt.
+main2.c: Alternate testing/demo logic
 
-Prints the tree structure.
+Octree.txt: Notes and decisions regarding Octree implementation
 
-Lets you select & move a point with trespass detection.
+RangeQuery.txt: Breakdown of range query techniques
 
-Runs a final 3D range query.
+random.txt, random1.txt: Sample input files with point data
 
-main2.c
-Alternate demonstration harness, if provided.
+.vscode/: Tasks and launch configs for easy use in VS Code
 
-Octree.txt & RangeQuery.txt
-Algorithmic notes and explanations of your design choices.
-
-random.txt, random1.txt
-Sample datasets: each line contains three floats x y z, one point per line.
-
-.vscode/
-Configuration for quick build/debug in VS Code:
-
-tasks.json defines compile commands
-
-launch.json sets up the debugger
-
-c_cpp_properties.json configures include paths
-
-Compiled artifacts (*.o, *.exe)
-Generated by gcc. You may add them to .gitignore if you prefer not to track them.
-
-🤝 Contributing
-Fork this repository.
-
-Create a feature branch:
-
-bash
+Sample Input Format (random.txt)
+python-repl
 Copy
 Edit
-git checkout -b feat/your-feature
-Commit your changes:
+1.2 3.4 5.6
+7.8 9.0 1.2
+...
+Each line: X Y Z (space-separated 3D coordinates)
 
-bash
-Copy
-Edit
-git commit -m "Add awesome feature"
-Push and open a Pull Request.
+Concepts Demonstrated
+Recursive data structures (Octree)
+
+Dynamic memory allocation
+
+Point-in-cube detection
+
+Node subdivision and merging
+
+Real-time spatial interaction in C
+
+Axis-aligned bounding cube queries
+
+To-Do (Optional Enhancements)
+ Add graphical visualization via Python/OpenGL
+
+ Enable saving/loading Octree to/from files
+
+ Implement collision detection between moving entities
+
+ Add point update without delete-insert
