@@ -50,21 +50,13 @@ A 3D bounding cube forms around the point
 
 If any other point enters, it prints:
 
-java
-Copy
-Edit
 You are trespassing at point (X, Y, Z)!
 Press q to stop and then perform a range query:
 
-yaml
-Copy
-Edit
 Enter minimum corner:  x y z
 Enter maximum corner:  x y z
 🔧 Octree API (in octree.h)
-c
-Copy
-Edit
+
 typedef struct { float x, y, z; } Point;
 typedef struct OctreeNode OctreeNode;
 
@@ -90,9 +82,6 @@ random.txt, random1.txt – Sample input files with 3D coordinates.
 .vscode/ – Launch and build configurations for VS Code.
 
 📌 Sample Input Format (random.txt)
-python-repl
-Copy
-Edit
 1.2 3.4 5.6
 7.8 9.0 1.2
 ...
