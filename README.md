@@ -10,28 +10,6 @@ Automatic subdivision and merging of nodes
 
 Live simulation loop with point movement and trespass detection
 
-Project Structure
-bash
-Copy
-Edit
-DSA/
-├── .vscode/            # VS Code build/debug configuration
-│   ├── c_cpp_properties.json
-│   ├── launch.json
-│   ├── settings.json
-│   └── tasks.json
-├── octree.h            # Octree data structures and function declarations
-├── octree.c            # Core implementation of the Octree
-├── main.c              # Main demo with interactive point movement
-├── main2.c             # Optional secondary demo or testbed
-├── Octree.txt          # Notes on design and logic
-├── RangeQuery.txt      # Details for implementing 3D range queries
-├── random.txt          # Sample point dataset
-├── random1.txt         # Additional sample dataset
-└── README.md           # Project documentation (this file)
-Requirements
-A C Compiler (gcc, MinGW, etc.)
-
 (Optional) Visual Studio Code with C extension for streamlined builds
 
 Build Instructions
