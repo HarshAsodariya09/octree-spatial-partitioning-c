@@ -9,26 +9,26 @@ Automatic node subdivision (up to a configurable depth) and merging
 
 A demo “game loop” allowing you to select a point, move it along the x/y/z axes, and detect when other points “trespass” into its bounding box
 
-📁 Repository Structure
-pgsql
+DSA/
+├── .vscode/ # VS Code build/debug configs
+│ ├── c_cpp_properties.json
+│ ├── launch.json
+│ ├── settings.json
+│ └── tasks.json
+├── octree.h # Octree data structures & API declarations
+├── octree.c # Octree implementation
+├── main.c # Main demo: build tree, move point, detect trespass, range query
+├── main2.c # Alternate test/demo
+├── Octree.txt # Notes on Octree algorithm
+├── RangeQuery.txt # Pseudocode for 3D range queries
+├── random.txt # Sample point dataset
+├── random1.txt # Additional dataset
+└── README.md # This file
+
+yaml
 Copy
 Edit
-DSA/
-├── .vscode/                   VS Code build & debug configs
-│   ├── c_cpp_properties.json
-│   ├── launch.json
-│   ├── settings.json
-│   └── tasks.json
-├── octree.h                   Octree data structures & API declarations
-├── octree.c                   Octree implementation (create, insert, search, delete, merge, rangeQuery, etc.)
-├── main.c                     Demo: build octree, move point with trespass detection, then range query
-├── main2.c                    (Optional) alternate demo or test harness
-├── Octree.txt                 Design notes on the Octree algorithm
-├── RangeQuery.txt             Pseudocode & notes for 3D range queries
-├── random.txt                 Sample point dataset for demo
-├── random1.txt                Additional sample dataset
-├── *.o / *.exe                Compiled object files and executables (can be ignored or added to `.gitignore`)
-└── README.md                  ← this file
+
 ⚙️ Prerequisites
 C compiler (e.g. gcc on Linux/macOS, MinGW on Windows)
 
