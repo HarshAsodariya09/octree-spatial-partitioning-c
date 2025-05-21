@@ -13,7 +13,6 @@
 4. [Build and Compilation](#build-and-compilation)
 5. [Usage Instructions](#usage-instructions)
 6. [Contributing](#contributing)
-7. [License](#license)
 
 ---
 
@@ -174,7 +173,3 @@ Feel free to open issues or pull requests for:
 * Integrating visualization of the octree.
 
 ---
-
-## License
-
-Licensed under MIT. See [LICENSE](LICENSE) for details.
